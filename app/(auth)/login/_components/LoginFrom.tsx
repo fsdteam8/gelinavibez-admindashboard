@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
+
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
@@ -55,7 +55,7 @@ export default function LoginForm() {
       setLoading(true);
 
       const res = await signIn("credentials", {
-        redirect: false, // manual redirect control
+        redirect: false, 
         email,
         password,
         callbackUrl: "/", 
@@ -81,7 +81,8 @@ export default function LoginForm() {
 
       toast.success("Login successful 🎉");
       setTimeout(() => {
-        router.push("/");
+        // router.push("/");
+        window.location.href = "/";
       }, 800);
     } catch (err) {
       toast.error("Something went wrong. Please try again." + err);
